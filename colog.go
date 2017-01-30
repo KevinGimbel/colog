@@ -56,10 +56,3 @@ func (c *Colog) Info(str string) string {
 	coloredLog := c.createColorLog(str, sInfo)
 	return coloredLog
 }
-
-// func main() {
-// 	fmt.Println(Warn("OMG"))
-// 	fmt.Println(Info("This is a information log"))
-// 	fmt.Println(Error("This is an error!"))
-// 	fmt.Println(Success("This is a success message"))
-// }
