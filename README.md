@@ -1,6 +1,8 @@
 # Colog
 > Colorful terminal logs
 
+[![GoDoc](https://godoc.org/github.com/kevingimbel/colog?status.svg)](https://godoc.org/github.com/kevingimbel/colog)
+
 Create colorful logs in terminals. Wrapper around [github.com/fatih/color](https://github.com/fatih/color/).
 
 ### Example
@@ -13,15 +15,23 @@ import (
 	"github.com/kevingimbel/colog"
 )
 
-// Create a new Log instance
-var Log = colog.Colog{LogFormat: "[%s][%s] -- %s", TimeFormat: "2006"}
+var logConfig = make(map[string]string)
+
+// Assign the configuration inside the init function
+// This is run before main
+func init() {
+	logConfig["TimeFormat"] = "2006"
+	logConfig["LogFormat"] = "[%s][%s] -- %s"
+}
 
 func main() {
-// Use it.
-	fmt.Println(Log.Success("Hello, Success!"))
-	fmt.Println(Log.Info("Hello, Info!"))
-	fmt.Println(Log.Error("Hello, Error!"))
-	fmt.Println(Log.Warn("Hello, Warning!"))
+	// Create a new Logger with the config assigned above
+	Log := colog.NewColog(logConfig)
+
+	fmt.Println(Log.Success("Yay, this is a success message!"))
+	fmt.Println(Log.Info("Hello, here we have a Info. Take note!"))
+	fmt.Println(Log.Error("Whoops! Looks like an error!"))
+	fmt.Println(Log.Warn("Heads up! There is something wonky."))
 }
 ```
 
@@ -29,48 +39,28 @@ func main() {
 
 ## API
 
+You can find the API documentation on [godoc.org](https://godoc.org/github.com/kevingimbel/colog)
+
 ### `Colog` struct
 
 ```go
 type Colog struct {
-	LogFormat  string
-	TimeFormat string
+	LogFormat    string
+	TimeFormat   string
+	InfoLabel    string
+	ErrorLabel   string
+	WarnLabel    string
+	SuccessLabel string
 }
 ```
 
-`LogFormat` is a string passed to `fmt.Sprintf` with three variable strings in the following order:
-
-- Log type (WARN, SUCCESS, ERROR, INFO)
-- Time format (based on `Colog.TimeFormat`)
-- The string to log.
-
-**Examples**
+Default values:
 
 ```go
-
-var Log = colog.Colog{LogFormat: "%s - (%s) -- %s", TimeFormat: "2006"}
-Log.Warn("Some string")
-// => WARNING - 2017 - Some string
-
-var Log = colog.Colog{LogFormat: "[%s]|(%s) >> %s", TimeFormat: "2006-Jan-2"}
-Log.Error("Some string")
-// => [WARNING]|(2017-Jan-29) >> Some string
+LogFormat    "[%s][%s] %s"
+TimeFormat   "2006-Jan-2 15:04:05"
+InfoLabel    "INFO"
+ErrorLabel   "ERROR"
+WarnLabel    "WARN"
+SuccessLabel "SUCCESS"
 ```
-
-## Functions
-
-### `Info(str string) string`
-
-Creates a blue colored log output. Makes use of `LogFormat` and `TimeFormat`.
-
-### `Success(str string) string`
-
-Creates a green colored log output. Makes use of `LogFormat` and `TimeFormat`.
-
-### `Warn(str string) string`
-
-Creates a yellow colored log output. Makes use of `LogFormat` and `TimeFormat`.
-
-### `Error(str string) string`
-
-Creates a red colored log output. Makes use of `LogFormat` and `TimeFormat`.

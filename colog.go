@@ -105,7 +105,16 @@ func extendDefaultConfig(settings map[string]string) map[string]string {
 	return config
 }
 
-// Create a new Logger with settings.
+// Create a new Colog instance by providing settings as map[string]string
+// All fields of the Colog struct are valid parameters
+//
+// Example
+// 		config = make(map[string]string)
+// 	 	config["ErrorLabel"] = "ERROR"
+//		config["TimeFormat"] = "2006-Jan-2"
+//		Log := colog.NewColog(config)
+//
+// All not configured values will use the default values.
 func NewColog(settings map[string]string) Colog {
 	fullConfig := extendDefaultConfig(settings)
 	log := Colog{}
@@ -113,5 +122,4 @@ func NewColog(settings map[string]string) Colog {
 		log.Set(key, value)
 	}
 	return log
-
 }
