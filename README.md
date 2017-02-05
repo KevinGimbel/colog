@@ -20,7 +20,7 @@ var logConfig = make(map[string]string)
 // Assign the configuration inside the init function
 // This is run before main
 func init() {
-	logConfig["TimeFormat"] = "2006"
+	logConfig["TimeFormat"] = "2006-Jan-2"
 	logConfig["LogFormat"] = "[%s][%s] -- %s"
 }
 
