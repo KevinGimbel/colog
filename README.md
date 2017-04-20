@@ -1,7 +1,7 @@
 # Colog
 > Colorful terminal logs
 
-[![GoDoc](https://godoc.org/github.com/kevingimbel/colog?status.svg)](https://godoc.org/github.com/kevingimbel/colog)
+[![Go Report Card](https://goreportcard.com/badge/github.com/kevingimbel/colog)](https://goreportcard.com/report/github.com/kevingimbel/colog) [![GoDoc](https://godoc.org/github.com/kevingimbel/colog?status.svg)](https://godoc.org/github.com/kevingimbel/colog) 
 
 Create colorful logs in terminals. Wrapper around [github.com/fatih/color](https://github.com/fatih/color/).
 
